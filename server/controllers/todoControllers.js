@@ -1,3 +1,5 @@
+const Todo = require("../db/models/todo");
+
 const getAllTodos = async (req, res) => {
 	res.send("All Todos");
 };
@@ -7,7 +9,12 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-	res.send("Create Todo");
+	try {
+		const todo = await Todo.create(req.body);
+		res.status(200).json(todo);
+	} catch (err) {
+		console.log(err);
+	}
 };
 
 const updateTodo = async (req, res) => {
