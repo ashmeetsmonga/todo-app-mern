@@ -5,11 +5,6 @@ import Header from "./components/Header";
 import Todo from "./components/Todo";
 import TodoList from "./components/TodoList";
 
-const todo = {
-	name: "Todo 1",
-	completed: false,
-};
-
 function App() {
 	return (
 		<div className='w-screen min-h-screen bg-gray-800 flex justify-center'>

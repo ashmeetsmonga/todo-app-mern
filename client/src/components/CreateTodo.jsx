@@ -1,15 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useMutation, useQueryClient } from "react-query";
+
+const addTodo = async (todoName) => {
+	const { data } = await axios.post("http://localhost:5000/api/v1/", {
+		name: todoName,
+	});
+
+	return data;
+};
 
 const CreateTodo = () => {
 	const [todo, setTodo] = useState("");
 
-	const addTodo = async () => {
-		const { data } = await axios.post("http://localhost:5000/api/v1/", {
-			name: todo,
-		});
-		console.log(data);
-	};
+	const queryClient = useQueryClient();
+	const mutation = useMutation(addTodo, {
+		onSuccess: () => {
+			setTodo("");
+			queryClient.invalidateQueries("todos");
+		},
+	});
 
 	return (
 		<div className='w-full flex justify-center items-center'>
@@ -20,7 +30,7 @@ const CreateTodo = () => {
 					value={todo}
 					onChange={(e) => setTodo(e.target.value)}
 				/>
-				<button className='text-4xl text-white' onClick={addTodo}>
+				<button className='text-4xl text-white' onClick={() => mutation.mutate(todo)}>
 					+
 				</button>
 			</div>
