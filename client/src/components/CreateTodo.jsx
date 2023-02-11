@@ -1,14 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
-
-const addTodo = async (todoName) => {
-	const { data } = await axios.post("http://localhost:5000/api/v1/", {
-		name: todoName,
-	});
-
-	return data;
-};
+import { addTodo } from "../api/queries";
 
 const CreateTodo = () => {
 	const [todo, setTodo] = useState("");

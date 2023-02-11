@@ -4,11 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import Todo from "./Todo";
 import { useQuery } from "react-query";
-
-const fetchTodos = async () => {
-	const { data } = await axios.get("http://localhost:5000/api/v1/");
-	return data;
-};
+import { fetchTodos } from "../api/queries";
 
 const TodoList = () => {
 	const { isLoading, isError, data, error } = useQuery("todos", fetchTodos);
