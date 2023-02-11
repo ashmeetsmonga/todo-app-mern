@@ -1,11 +1,14 @@
 const Todo = require("../db/models/todo");
 
 const getAllTodos = async (req, res) => {
-	res.send("All Todos");
+	const todos = await Todo.find({});
+	res.status(200).json(todos);
 };
 
 const getTodo = async (req, res) => {
-	res.send("Single Todo");
+	const _id = req.params.id;
+	const todo = await Todo.find({ _id });
+	res.status(200).json(todo);
 };
 
 const createTodo = async (req, res) => {
@@ -14,11 +17,16 @@ const createTodo = async (req, res) => {
 };
 
 const updateTodo = async (req, res) => {
-	res.send("Update Todo");
+	const todo = await Todo.findOneAndUpdate({ _id: req.params.id }, req.body, {
+		new: true,
+		runValidators: true,
+	});
+	res.status(200).json(todo);
 };
 
 const deleteTodo = async (req, res) => {
-	res.send("Delete Todo");
+	const todo = await Todo.findOneAndDelete({ _id: req.params.id });
+	res.status(200).json({ msg: `Todo ${todo.name} deleted` });
 };
 
 module.exports = {
