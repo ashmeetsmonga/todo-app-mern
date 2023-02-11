@@ -16,9 +16,9 @@ const CreateTodo = () => {
 
 	return (
 		<div className='w-full flex justify-center items-center'>
-			<div className='w-3/5 flex bg-gray-600 rounded-2xl pr-4'>
+			<div className='w-3/5 flex bg-gray-600 shadow-3xl rounded-2xl pr-4'>
 				<input
-					className='w-full p-4  outline-none bg-transparent text-white text-xl'
+					className='w-full p-4 rounded-2xl tracking-wider outline-none bg-transparent  text-white text-xl'
 					type='text'
 					value={todo}
 					onChange={(e) => setTodo(e.target.value)}

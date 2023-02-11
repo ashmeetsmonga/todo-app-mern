@@ -1,3 +1,5 @@
+import axios from "axios";
+
 export const addTodo = async (todoName) => {
 	const { data } = await axios.post("http://localhost:5000/api/v1/", {
 		name: todoName,
