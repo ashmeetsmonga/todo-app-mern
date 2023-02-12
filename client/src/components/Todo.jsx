@@ -1,5 +1,7 @@
 import React from "react";
-import { AiFillDelete } from "react-icons/ai";
+import { AiFillDelete, AiOutlineCheckCircle } from "react-icons/ai";
+import { MdDoneAll } from "react-icons/md";
+import { BsCircle } from "react-icons/bs";
 import { useMutation, useQueryClient } from "react-query";
 import { deleteTodo, updateTodo } from "../api/queries";
 
@@ -24,12 +26,17 @@ const Todo = ({ todo }) => {
 				updateMutation.mutate({ ...todo, completed: !todo.completed });
 			}}
 		>
-			<div className={`${todo.completed ? "line-through text-gray-300" : "text-white"}`}>
+			<div
+				className={`flex gap-4 items-center ${
+					todo.completed ? "line-through text-gray-300" : "text-white"
+				}`}
+			>
+				{todo.completed ? <MdDoneAll className='text-green-400' /> : <BsCircle />}
 				{todo.name}
 			</div>
 			<div className='flex gap-2'>
-				<button className='text-red-400' onClick={() => deleteMutation.mutate(todo._id)}>
-					<AiFillDelete />
+				<button onClick={() => deleteMutation.mutate(todo._id)}>
+					<AiFillDelete className='text-red-400' />
 				</button>
 			</div>
 		</div>
