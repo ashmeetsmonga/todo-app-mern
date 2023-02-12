@@ -8,7 +8,8 @@ const CreateTodo = () => {
 
 	const queryClient = useQueryClient();
 	const mutation = useMutation(addTodo, {
-		onSuccess: () => {
+		onSuccess: (data) => {
+			console.log(data);
 			setTodo("");
 			queryClient.invalidateQueries("todos");
 		},
