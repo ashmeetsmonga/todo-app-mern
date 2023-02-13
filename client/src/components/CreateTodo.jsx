@@ -2,18 +2,12 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useMutation, useQueryClient } from "react-query";
 import { addTodo } from "../api/queries";
+import { createMutation } from "./todoMutations";
 
 const CreateTodo = () => {
 	const [todo, setTodo] = useState("");
 
-	const queryClient = useQueryClient();
-	const mutation = useMutation(addTodo, {
-		onSuccess: (data) => {
-			console.log(data);
-			setTodo("");
-			queryClient.invalidateQueries("todos");
-		},
-	});
+	const { mutate: createMutate } = createMutation();
 
 	return (
 		<div className='w-full flex justify-center items-center'>
@@ -24,7 +18,13 @@ const CreateTodo = () => {
 					value={todo}
 					onChange={(e) => setTodo(e.target.value)}
 				/>
-				<button className='text-4xl text-white' onClick={() => mutation.mutate(todo)}>
+				<button
+					className='text-4xl text-white'
+					onClick={() => {
+						createMutate(todo);
+						setTodo("");
+					}}
+				>
 					+
 				</button>
 			</div>

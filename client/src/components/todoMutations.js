@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
-import { deleteTodo, updateTodo } from "../api/queries";
+import { addTodo, deleteTodo, updateTodo } from "../api/queries";
 
 export const deleteMutation = () => {
 	const queryClient = useQueryClient();
@@ -20,6 +20,26 @@ export const deleteMutation = () => {
 		onSettled: async () => {
 			await queryClient.invalidateQueries("todos");
 			console.log("todo deleted");
+		},
+	});
+};
+
+export const createMutation = () => {
+	const queryClient = useQueryClient();
+	return useMutation(addTodo, {
+		onMutate: (todoName) => {
+			const newTodo = { _id: Math.floor(Math.random() * 1000), name: todoName, completed: false };
+			const previousTodos = queryClient.getQueryData("todos");
+			queryClient.setQueryData("todos", [...previousTodos, newTodo]);
+			return { previousTodos };
+		},
+		onError: (error, todoId, context) => {
+			console.log("error occured", error);
+			queryClient.setQueryData("todos", context.previousTodos);
+		},
+		onSettled: async () => {
+			await queryClient.invalidateQueries("todos");
+			console.log("todo created");
 		},
 	});
 };
