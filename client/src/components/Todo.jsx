@@ -8,14 +8,27 @@ import { deleteTodo, updateTodo } from "../api/queries";
 const Todo = ({ todo }) => {
 	const queryClient = useQueryClient();
 	const deleteMutation = useMutation(deleteTodo, {
+		onMutate: (data) => {
+			console.log(data);
+		},
 		onSuccess: () => {
 			queryClient.invalidateQueries("todos");
 		},
 	});
 
 	const updateMutation = useMutation(updateTodo, {
-		onSuccess: () => {
+		onMutate: async (updatedTodo) => {
+			await queryClient.cancelQueries("todos");
+			const todos = queryClient.getQueryData("todos");
+			const updatedTodos = todos.map((todo) => {
+				if (todo._id === updatedTodo._id) return updatedTodo;
+				return todo;
+			});
+			queryClient.setQueryData("todos", updatedTodos);
+		},
+		onSuccess: (data) => {
 			queryClient.invalidateQueries("todos");
+			console.log(data);
 		},
 	});
 
@@ -35,7 +48,12 @@ const Todo = ({ todo }) => {
 				{todo.name}
 			</div>
 			<div className='flex gap-2'>
-				<button onClick={() => deleteMutation.mutate(todo._id)}>
+				<button
+					onClick={(e) => {
+						e.stopPropagation();
+						deleteMutation.mutate(todo._id);
+					}}
+				>
 					<AiFillDelete className='text-red-400' />
 				</button>
 			</div>
