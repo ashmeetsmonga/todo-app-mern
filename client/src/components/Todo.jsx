@@ -2,41 +2,17 @@ import React from "react";
 import { AiFillDelete, AiOutlineCheckCircle } from "react-icons/ai";
 import { MdDoneAll } from "react-icons/md";
 import { BsCircle } from "react-icons/bs";
-import { useMutation, useQueryClient } from "react-query";
-import { deleteTodo, updateTodo } from "../api/queries";
+import { deleteMutation, updateMutation } from "./todoMutations";
 
 const Todo = ({ todo }) => {
-	const queryClient = useQueryClient();
-	const deleteMutation = useMutation(deleteTodo, {
-		onMutate: (data) => {
-			console.log(data);
-		},
-		onSuccess: () => {
-			queryClient.invalidateQueries("todos");
-		},
-	});
-
-	const updateMutation = useMutation(updateTodo, {
-		onMutate: async (updatedTodo) => {
-			await queryClient.cancelQueries("todos");
-			const todos = queryClient.getQueryData("todos");
-			const updatedTodos = todos.map((todo) => {
-				if (todo._id === updatedTodo._id) return updatedTodo;
-				return todo;
-			});
-			queryClient.setQueryData("todos", updatedTodos);
-		},
-		onSuccess: (data) => {
-			queryClient.invalidateQueries("todos");
-			console.log(data);
-		},
-	});
+	const { mutate: updateMutate } = updateMutation();
+	const { mutate: deleteMutate } = deleteMutation();
 
 	return (
 		<div
 			className={`bg-gray-600 flex justify-between items-center py-3 px-4 w-3/5 rounded-2xl text-2xl tracking-widest cursor-pointer`}
 			onClick={() => {
-				updateMutation.mutate({ ...todo, completed: !todo.completed });
+				updateMutate({ ...todo, completed: !todo.completed });
 			}}
 		>
 			<div
@@ -51,7 +27,7 @@ const Todo = ({ todo }) => {
 				<button
 					onClick={(e) => {
 						e.stopPropagation();
-						deleteMutation.mutate(todo._id);
+						deleteMutate(todo._id);
 					}}
 				>
 					<AiFillDelete className='text-red-400' />
