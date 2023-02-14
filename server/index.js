@@ -7,6 +7,7 @@ const authRouter = require("./routes/authRoutes");
 require("dotenv").config();
 require("./db/connect");
 const cors = require("cors");
+const authorizationMiddleware = require("./middleware/auth");
 
 const app = express();
 const port = process.env.PORT || 5000;
@@ -14,7 +15,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1", todoRouter);
+app.use("/api/v1", authorizationMiddleware, todoRouter);
 app.use("/api/v1/auth", authRouter);
 
 //middlewares

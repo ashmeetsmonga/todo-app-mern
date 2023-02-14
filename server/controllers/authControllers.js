@@ -11,7 +11,6 @@ const login = async (req, res) => {
 	if (!isPasswordCorrect) throw new Error("Invalid credentials 2");
 
 	const token = user.createJWT();
-
 	res.status(200).json({ name: user.name, token });
 };
 
@@ -21,7 +20,9 @@ const register = async (req, res) => {
 	if (!name || !email || !password) throw new Error("Enter name, email and password");
 
 	const user = await User.create({ name, email, password });
-	res.status(200).json(user);
+
+	const token = user.createJWT();
+	res.status(200).json({ name: user.name, token });
 };
 
 module.exports = { login, register };
