@@ -10,7 +10,9 @@ const login = async (req, res) => {
 	const isPasswordCorrect = await user.checkPassword(password);
 	if (!isPasswordCorrect) throw new Error("Invalid credentials 2");
 
-	res.status(200).json(user);
+	const token = user.createJWT();
+
+	res.status(200).json({ name: user.name, token });
 };
 
 const register = async (req, res) => {
