@@ -9,8 +9,13 @@ export const addTodo = async (todoName) => {
 };
 
 export const fetchTodos = async () => {
-	const { data } = await axios.get("http://localhost:5000/api/v1/");
-	return data;
+	const { data } = await axios.get("http://localhost:5000/api/v1/todos/", {
+		headers: {
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+	});
+	console.log(data);
+	return data.todos;
 };
 
 export const deleteTodo = async (_id) => {
