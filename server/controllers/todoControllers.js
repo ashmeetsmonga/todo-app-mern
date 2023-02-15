@@ -1,14 +1,15 @@
 const Todo = require("../db/models/Todo");
+const { StatusCodes } = require("http-status-codes");
 
 const getAllTodos = async (req, res) => {
 	const todos = await Todo.find({});
-	res.status(200).json({ todos, ...req.user });
+	res.status(StatusCodes.OK).json({ todos, ...req.user });
 };
 
 const getTodo = async (req, res) => {
 	const _id = req.params.id;
 	const todo = await Todo.find({ _id });
-	res.status(200).json(todo);
+	res.status(StatusCodes.OK).json(todo);
 };
 
 const createTodo = async (req, res) => {
@@ -21,12 +22,12 @@ const updateTodo = async (req, res) => {
 		new: true,
 		runValidators: true,
 	});
-	res.status(200).json(todo);
+	res.status(StatusCodes.OK).json(todo);
 };
 
 const deleteTodo = async (req, res) => {
 	const todo = await Todo.findOneAndDelete({ _id: req.params.id });
-	res.status(200).json({ msg: `Todo ${todo.name} deleted` });
+	res.status(StatusCodes.OK).json({ msg: `Todo ${todo.name} deleted` });
 };
 
 module.exports = {

@@ -1,4 +1,5 @@
 const User = require("../db/models/User");
+const { StatusCodes } = require("http-status-codes");
 
 const login = async (req, res) => {
 	const { email, password } = req.body;
@@ -11,7 +12,7 @@ const login = async (req, res) => {
 	if (!isPasswordCorrect) throw new Error("Invalid credentials 2");
 
 	const token = user.createJWT();
-	res.status(200).json({ name: user.name, token });
+	res.status(StatusCodes.OK).json({ name: user.name, token });
 };
 
 const register = async (req, res) => {
@@ -22,7 +23,7 @@ const register = async (req, res) => {
 	const user = await User.create({ name, email, password });
 
 	const token = user.createJWT();
-	res.status(200).json({ name: user.name, token });
+	res.status(StatusCodes.CREATED).json({ name: user.name, token });
 };
 
 module.exports = { login, register };

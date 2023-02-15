@@ -15,8 +15,8 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/v1", authorizationMiddleware, todoRouter);
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/todos", authorizationMiddleware, todoRouter);
 
 //middlewares
 app.use(notFound);
