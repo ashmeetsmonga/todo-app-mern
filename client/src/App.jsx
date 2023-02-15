@@ -3,6 +3,8 @@ import CreateTodo from "./components/CreateTodo";
 import Header from "./components/Header";
 import TodoList from "./components/TodoList";
 import { Routes, Route, Link, useNavigate, useLocation, Navigate, Outlet } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login";
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
 					<Route path='/' element={<Login />} />
 				</Routes>
 			</div>
+			<ToastContainer position='top-center' autoClose={3000} />
 		</div>
 	);
 }

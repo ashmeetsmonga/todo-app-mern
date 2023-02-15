@@ -1,9 +1,24 @@
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	const login = async () => {
+		try {
+			const { data } = await axios.post("http://localhost:5000/api/v1/auth/login", {
+				email,
+				password,
+			});
+			console.log(data);
+			return data;
+		} catch (err) {
+			toast.error("Invalid Credentials");
+			console.log(err);
+		}
+	};
 
 	return (
 		<div className='mt-[15rem] flex flex-col w-full items-center'>
@@ -25,7 +40,10 @@ const Login = () => {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<button className='w-2/5 bg-gray-700 text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'>
+				<button
+					className='w-2/5 bg-gray-700 text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'
+					onClick={login}
+				>
 					Login
 				</button>
 			</div>
