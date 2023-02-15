@@ -6,6 +6,7 @@ import { Routes, Route, Link, useNavigate, useLocation, Navigate, Outlet } from 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login";
+import RequireAuth from "./components/RequireAuth";
 
 function App() {
 	return (
@@ -19,6 +20,16 @@ function App() {
 				<TodoList /> */}
 				<Routes>
 					<Route path='/' element={<Login />} />
+					<Route
+						path='/todos'
+						element={
+							<RequireAuth>
+								<Header />
+								<CreateTodo />
+								<TodoList />
+							</RequireAuth>
+						}
+					/>
 				</Routes>
 			</div>
 			<ToastContainer position='top-center' autoClose={3000} />

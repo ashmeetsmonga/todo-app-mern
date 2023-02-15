@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const navigate = useNavigate();
 
 	const login = async () => {
 		try {
@@ -12,8 +14,9 @@ const Login = () => {
 				email,
 				password,
 			});
-			console.log(data);
-			return data;
+			localStorage.setItem("name", data.name);
+			localStorage.setItem("token", data.token);
+			navigate("/todos");
 		} catch (err) {
 			toast.error("Invalid Credentials");
 			console.log(err);
