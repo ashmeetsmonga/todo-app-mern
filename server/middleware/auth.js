@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
+const UnAuthorizedError = require("../errors/unAuthorizedError");
 
 const authorizationMiddleware = async (req, res, next) => {
 	const authHeader = req.headers.authorization;
-	if (!authHeader || !authHeader.startsWith("Bearer ")) throw new Error("Authorization Error 1");
+	if (!authHeader || !authHeader.startsWith("Bearer "))
+		throw new UnAuthorizedError("Authorization Error 1");
 
 	const token = authHeader.split(" ")[1];
 
@@ -12,7 +14,7 @@ const authorizationMiddleware = async (req, res, next) => {
 		next();
 	} catch (error) {
 		console.log(error);
-		throw new Error("Authorization Error 2");
+		throw new UnAuthorizedError("Authorization Error 2");
 	}
 };
 
