@@ -3,8 +3,9 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
 	const [email, setEmail] = useState("");
+	const [name, setName] = useState("");
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
@@ -26,9 +27,16 @@ const Login = () => {
 	return (
 		<div className='mt-[15rem] flex flex-col w-full items-center'>
 			<div className='w-full uppercase font-bold text-white text-6xl py-14 text-center tracking-[1rem]'>
-				Login
+				Register
 			</div>
 			<div className='w-full text-center flex flex-col gap-4 items-center'>
+				<input
+					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
+					type='text'
+					placeholder='email'
+					value={name}
+					onChange={(e) => setName(e.target.value)}
+				/>
 				<input
 					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
 					type='text'
@@ -43,20 +51,16 @@ const Login = () => {
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<div className='w-3/5 flex gap-4 justify-center'>
-					<button
-						className='w-2/5 bg-gray-700 text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'
-						onClick={login}
-					>
-						Login
-					</button>
-					<div className='w-2/5  text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'>
-						<Link to='/register'>Register</Link>
-					</div>
-				</div>
+
+				<button
+					className='w-2/5 bg-gray-700 text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'
+					onClick={login}
+				>
+					Register
+				</button>
 			</div>
 		</div>
 	);
 };
 
-export default Login;
+export default Register;

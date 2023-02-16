@@ -7,6 +7,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login";
 import RequireAuth from "./components/RequireAuth";
+import Register from "./components/Register";
 
 function App() {
 	return (
@@ -15,11 +16,9 @@ function App() {
 				<img className='w-full h-full object-cover opacity-50' src='./images/bg.jpg' alt='' />
 			</div>
 			<div className='w-1/2 flex flex-col items-center z-10'>
-				{/*<Header />
-				<CreateTodo />
-				<TodoList /> */}
 				<Routes>
 					<Route path='/' element={<Login />} />
+					<Route path='/register' element={<Register />} />
 					<Route
 						path='/todos'
 						element={
