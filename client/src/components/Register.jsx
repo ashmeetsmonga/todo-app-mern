@@ -9,9 +9,10 @@ const Register = () => {
 	const [password, setPassword] = useState("");
 	const navigate = useNavigate();
 
-	const login = async () => {
+	const register = async () => {
 		try {
-			const { data } = await axios.post("http://localhost:5000/api/v1/auth/login", {
+			const { data } = await axios.post("http://localhost:5000/api/v1/auth/register", {
+				name,
 				email,
 				password,
 			});
@@ -19,7 +20,6 @@ const Register = () => {
 			localStorage.setItem("token", data.token);
 			navigate("/todos");
 		} catch (err) {
-			toast.error("Invalid Credentials");
 			console.log(err);
 		}
 	};
@@ -33,7 +33,7 @@ const Register = () => {
 				<input
 					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
 					type='text'
-					placeholder='email'
+					placeholder='name'
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
@@ -54,7 +54,7 @@ const Register = () => {
 
 				<button
 					className='w-2/5 bg-gray-700 text-3xl text-white p-3 rounded-2xl mt-4 font-bold tracking-widest'
-					onClick={login}
+					onClick={register}
 				>
 					Register
 				</button>
