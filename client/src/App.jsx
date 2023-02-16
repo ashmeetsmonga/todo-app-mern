@@ -10,9 +10,19 @@ import RequireAuth from "./components/RequireAuth";
 import Register from "./components/Register";
 
 function App() {
+	const navigate = useNavigate();
+	const signout = () => {
+		localStorage.setItem("name", "");
+		localStorage.setItem("token", "");
+		navigate("/");
+	};
+
 	return (
 		<div className='w-screen min-h-screen bg-gray-800 flex justify-center relative'>
-			<button className='absolute right-5 bottom-5 bg-gray-700 text-lg text-white p-3 rounded-2xl tracking-widest'>
+			<button
+				className='absolute right-5 bottom-5 bg-gray-700 text-lg text-white p-3 rounded-2xl tracking-widest'
+				onClick={signout}
+			>
 				Sign Out
 			</button>
 			<div className='absolute w-full h-[15.5rem] bg-gradient-to-r from-purple-900 to-black opacity-80'>
