@@ -12,6 +12,9 @@ import Register from "./components/Register";
 function App() {
 	return (
 		<div className='w-screen min-h-screen bg-gray-800 flex justify-center relative'>
+			<button className='absolute right-5 bottom-5 bg-gray-700 text-lg text-white p-3 rounded-2xl tracking-widest'>
+				Sign Out
+			</button>
 			<div className='absolute w-full h-[15.5rem] bg-gradient-to-r from-purple-900 to-black opacity-80'>
 				<img className='w-full h-full object-cover opacity-50' src='./images/bg.jpg' alt='' />
 			</div>
