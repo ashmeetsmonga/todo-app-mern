@@ -33,21 +33,21 @@ const Register = () => {
 				<input
 					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
 					type='text'
-					placeholder='name'
+					placeholder='Name (min 6 chars)'
 					value={name}
 					onChange={(e) => setName(e.target.value)}
 				/>
 				<input
 					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
 					type='text'
-					placeholder='email'
+					placeholder='Email'
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 				<input
 					className='w-3/5 p-4 rounded-2xl tracking-widest outline-none bg-gray-700 text-white text-2xl'
 					type='text'
-					placeholder='password'
+					placeholder='Password'
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
