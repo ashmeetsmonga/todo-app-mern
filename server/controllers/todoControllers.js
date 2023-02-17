@@ -2,7 +2,7 @@ const Todo = require("../db/models/Todo");
 const { StatusCodes } = require("http-status-codes");
 
 const getAllTodos = async (req, res) => {
-	const todos = await Todo.find({});
+	const todos = await Todo.find({ createdBy: req.user.userId });
 	res.status(StatusCodes.OK).json({ todos, ...req.user });
 };
 
