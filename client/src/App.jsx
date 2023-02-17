@@ -8,12 +8,15 @@ import "react-toastify/dist/ReactToastify.css";
 import Login from "./components/Login";
 import RequireAuth from "./components/RequireAuth";
 import Register from "./components/Register";
+import { useQueryClient } from "react-query";
 
 function App() {
+	const queryClient = useQueryClient();
 	const navigate = useNavigate();
 	const signout = () => {
 		localStorage.setItem("name", "");
 		localStorage.setItem("token", "");
+		queryClient.removeQueries({ queryKey: ["todos"], exact: true });
 		navigate("/");
 	};
 
