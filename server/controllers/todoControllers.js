@@ -13,8 +13,10 @@ const getTodo = async (req, res) => {
 };
 
 const createTodo = async (req, res) => {
-	const todo = await Todo.create(req.body);
-	res.status(201).json(todo);
+	const todo = { ...req.body };
+	todo.createdBy = req.user.userId;
+	const createdTodo = await Todo.create(todo);
+	res.status(201).json(createdTodo);
 };
 
 const updateTodo = async (req, res) => {
